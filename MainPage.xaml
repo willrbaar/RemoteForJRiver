@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="RemoteForJRiver.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RemoteForJRiver"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+   
+    <Page.Resources>
+        <Style TargetType="Button" x:Name="CmdButton">
+            <Setter Property="FontSize" Value="20" ></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="Background" Value="LightGray"></Setter>
+            <Setter Property="RelativePanel.AlignVerticalCenterWithPanel" Value="True"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Padding="12,10,12,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!--<RowDefinition Height="Auto" />-->
+            <RowDefinition Height="*" />
+            <!--<RowDefinition Height="Auto" />-->
+        </Grid.RowDefinitions>
+
+
+
+
+
+        <StackPanel Name="StackPanelForContols" Grid.Row="0" >
+
+            <Grid Name="AddressBarGrid"  Margin="0,10,0,0" Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <RelativePanel Name="RelativePanelForControls" >
+                    <TextBox x:Name="AddressBox" AccessKey="A"  Text="http://www.microsoft.com" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"  Width="600" Margin="10,0,0,0"  KeyUp="Address_KeyUp" Visibility="{x:Bind MyVisibilityControl.VisibiltyState, Mode=OneWay}" />
+                    <Button x:Name="GoButton" AccessKey="G" Content="Go"  Style="{StaticResource CmdButton}"  RelativePanel.RightOf="AddressBox" Click="{x:Bind GoButton_Click}" Visibility="{x:Bind MyVisibilityControl.VisibiltyState, Mode=OneWay}" />
+                    <Button x:Name="NavigateBackButton" AccessKey="B"  Style="{StaticResource CmdButton}"  FontFamily="Segoe MDL2 Assets"   Content="&#xE72B;"  RelativePanel.RightOf="ProgressControl" Margin="0,0,10,0"  Visibility="{x:Bind MyVisibilityControl.VisibiltyState, Mode=OneWay}" />
+                    <Button Name="RefreshButton" AccessKey="R"    Style="{StaticResource CmdButton}"  FontFamily="Segoe MDL2 Assets"   RelativePanel.RightOf="NavigateBackButton"  Content="&#xE149;"  Margin="0,0,10,0" Visibility="{x:Bind MyVisibilityControl.VisibiltyState, Mode=OneWay}"  ></Button>
+                    <Button x:Name="NavigateForwardButton" AccessKey="N" Style="{StaticResource CmdButton}"   FontFamily="Segoe MDL2 Assets"  Content="&#xE72A;" Click="{x:Bind NavigateForward_Click}"  RelativePanel.RightOf="RefreshButton" Margin="0,0,10,0"  Visibility="{x:Bind MyVisibilityControl.VisibiltyState, Mode=OneWay}" />
+                    <ProgressRing x:Name="ProgressControl" Height="30" Width="30"  RelativePanel.RightOf="GoButton" Visibility="{x:Bind MyVisibilityControl.VisibiltyState, Mode=OneWay}"/>
+                    <Button x:Name="FullScreenButton" AccessKey="F" Click="FullScreenButton_Click" Style="{StaticResource CmdButton}"   Content="FULLSCREEN" Margin="0,0,100,0" RelativePanel.AlignRightWithPanel="True"  HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="{x:Bind MyVisibilityControl.VisibiltyState, Mode=OneWay}" ></Button>
+                    <Button x:Name="SecondFakeElement"  AccessKey="S"  Height="5" Width="5" Style="{StaticResource CmdButton}" Click="SecondFakeElement_Click" HorizontalAlignment="Right" VerticalAlignment="Top"  ></Button>
+
+                </RelativePanel>
+
+            </Grid>
+
+        </StackPanel>
+        <Grid Grid.Row="1" BorderBrush="#FF707070" BorderThickness="1" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="129*"/>
+                <ColumnDefinition Width="185*"/>
+            </Grid.ColumnDefinitions>
+
+            <WebView x:Name="WebViewControl"
+                     NavigationStarting="WebViewControl_NavigationStarting" ContentLoading="WebViewControl_ContentLoading"
+                     DOMContentLoaded="WebViewControl_DOMContentLoaded" UnviewableContentIdentified="WebViewControl_UnviewableContentIdentified"
+                     NavigationCompleted="WebViewControl_NavigationCompleted" Grid.ColumnSpan="2" Margin="1"/>
+
+        </Grid>
+    </Grid>
+
+</Page>
+
